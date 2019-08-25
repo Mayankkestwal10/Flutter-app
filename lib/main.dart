@@ -1,25 +1,65 @@
-import "package:flutter/material.dart";
-import 'app_screens/first_screen.dart';
-void main() => runApp(
-    new MyFlutterApp()
-  );
+import 'package:flutter/material.dart';
 
+import 'app_screens/Home.dart';
 
+void main() {
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: "Exploring UI elements",
+//      home: Scaffold(
+//        body: getListView(),
+//      ),
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text("Long List"),
+      ),
+      body: getListView(),
+    ),
+  ));
+}
 
-class MyFlutterApp extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-        title: "Mayank",
-        home: Scaffold(
-          appBar: AppBar(
-            title: Text("My App Screen"),
-          ),
-              body: FirstScreen(),
-        )
-    );
+List<String> getListElements() {
+  var items = List<String>.generate(1000, (counter) => "Item $counter");
+  return items;
+}
 
+Widget getListView() {
+  var listItems = getListElements();
+
+  var listView = ListView.builder(itemBuilder: (context, index) {
+    return ListTile(
+        leading: Icon(Icons.arrow_right),
+        title: Text(listItems[index]),
+        onTap: () => debugPrint("${listItems[index]} was tapped"));
   }
 
+
+  );
+
+  return listView;
 }
+
+//Widget getListView(){
+//
+//  var listView = ListView(
+//    children: <Widget>[
+//      ListTile(
+//        leading: Icon(Icons.landscape),
+//        title: Text("Landscape"),
+//        subtitle: Text("Beautiful View!"),
+//        trailing: Icon(Icons.wb_sunny),
+//        onTap: () => debugPrint("Landscape Tapped"),
+//      ),
+//      ListTile(
+//        leading: Icon(Icons.laptop_chromebook),
+//        title: Text("Windows"),
+//      ),
+//      ListTile(
+//        leading: Icon(Icons.phone),
+//        title: Text("Phone"),
+//      )
+//    ],
+//  );
+//
+//  return listView;
+//}
