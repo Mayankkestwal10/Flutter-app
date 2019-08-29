@@ -14,9 +14,30 @@ void main() {
         title: Text("Long List"),
       ),
       body: getListView(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          debugPrint("FAB clicked");
+        },
+        child: Icon(Icons.add),
+        tooltip: "Add One More Item",
+      ),
     ),
   ));
 }
+
+// SnackBar
+
+void showSnackBar(BuildContext context, String item){
+  var snackBar = SnackBar(content: Text("Clicked $item"),
+  action: SnackBarAction(label: "UNDO", onPressed: (){
+    debugPrint("You just pressed UNDO");
+  }), duration: Duration(milliseconds: 2000),);
+
+  Scaffold.of(context).showSnackBar(snackBar);
+}
+
+
+
 
 List<String> getListElements() {
   var items = List<String>.generate(1000, (counter) => "Item $counter");
@@ -30,11 +51,10 @@ Widget getListView() {
     return ListTile(
         leading: Icon(Icons.arrow_right),
         title: Text(listItems[index]),
-        onTap: () => debugPrint("${listItems[index]} was tapped"));
-  }
-
-
-  );
+        onTap: () {
+          showSnackBar(context, listItems[index]);
+        });
+  });
 
   return listView;
 }
